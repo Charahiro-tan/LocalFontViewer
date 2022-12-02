@@ -1,2 +1,11 @@
 # LocalFontViewer
-Local Font Access APIを使用してブラウザにローカルのフォントを表示します
+
+Local Font Access API を使用してブラウザにローカルのフォントを表示します
+
+# ↓↓↓
+
+https://charahiro-tan.github.io/LocalFontViewer/
+
+### このプログラムについて
+
+doc/このプログラムについて.md をご覧ください

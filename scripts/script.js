@@ -34,21 +34,21 @@ elmSampleTextInput.value = sampleText;
 const grid = new Grid(gridConfig).render(elmFontListField);
 
 const showStatus = async () => {
-  if(!self.queryLocalFonts){
+  if (!self.queryLocalFonts) {
     elmFontApiStatus.innerText = 'このブラウザはFont Access APIに対応していません';
     elmFontApiStatus.style.color = 'red';
     elmLoadButton.disabled = "disabled";
     enabled = false;
     return;
   }
-  const status = await navigator.permissions.query({name: "local-fonts"});
-  if(status.state === 'granted'){
+  const status = await navigator.permissions.query({ name: "local-fonts" });
+  if (status.state === 'granted') {
     elmFontApiStatus.innerText = '読み込みできます';
     elmFontApiStatus.style.color = '';
-  }else if(status.state === 'prompt'){
+  } else if (status.state === 'prompt') {
     elmFontApiStatus.innerText = '読み込みボタンを押してフォントへのアクセスを許可してください';
     elmFontApiStatus.style.color = '';
-  }else{
+  } else {
     elmFontApiStatus.innerText = 'フォントへのアクセスが拒否されました';
     elmFontApiStatus.style.color = 'red';
     elmLoadButton.disabled = "disabled";
@@ -70,10 +70,11 @@ const updateTableHeight = () => {
 };
 
 const updateSampleText = () => {
-  if(sampleText === elmSampleTextInput.value){
+  if (sampleText === elmSampleTextInput.value) {
     return;
   }
   sampleText = elmSampleTextInput.value;
+  elmFooterSample.innerText = sampleText;
   updateTableData();
 };
 
@@ -89,32 +90,32 @@ const showInfo = (cells) => {
 };
 
 const addFontFace = async () => {
-  for(const font of fonts){
+  for (const font of fonts) {
     const fontFace = new FontFace(`local_${font.postscriptName}`, `local('${font.postscriptName}')`);
-    try{
+    try {
       document.fonts.add(await fontFace.load());
-    }catch(e){
+    } catch (e) {
       console.error(`(${font.postscriptName})`, e);
     }
   }
 };
 
 const loadFonts = async () => {
-  if(!enabled){
+  if (!enabled) {
     return;
   }
-  try{
+  try {
     fonts = await self.queryLocalFonts();
     await addFontFace();
     updateTableData();
-  }catch(e){
+  } catch (e) {
     console.error(e);
-  }finally{
+  } finally {
     showStatus();
   }
 };
 
-elmFontListField.style.marginTop = elmHeader.scrollHeight + 20 +'px';
+elmFontListField.style.marginTop = elmHeader.scrollHeight + 20 + 'px';
 elmFontListField.style.marginBottom = elmFooter.scrollHeight + 20 + 'px';
 
 window.addEventListener('load', showStatus);
@@ -124,22 +125,22 @@ elmSampleTextInput.addEventListener('change', updateSampleText);
 elmSampleTextInput.addEventListener('keyup', updateSampleText);
 
 elmJsonCopyBtn.addEventListener('click', async () => {
-  if(!elmTableJson.value){
+  if (!elmTableJson.value) {
     return;
   }
-  try{
+  try {
     await navigator.clipboard.writeText(elmTableJson.value);
     elmCopyResult.innerText = 'コピーしました！';
     await sleep(1000);
     elmCopyResult.innerText = '';
-  }catch{
+  } catch {
     elmCopyResult.innerText = 'コピーに失敗しました...';
     await sleep(1000);
     elmCopyResult.innerText = '';
   }
 });
 
-elmsClickSelect.forEach( (elm) => {
+elmsClickSelect.forEach((elm) => {
   elm.addEventListener('click', event => event.target.select());
 });
 

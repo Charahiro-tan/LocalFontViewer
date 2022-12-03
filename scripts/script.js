@@ -40,7 +40,7 @@ const showStatus = async () => {
     elmLoadButton.disabled = "disabled";
     enabled = false;
     return;
-  };
+  }
   const status = await navigator.permissions.query({name: "local-fonts"});
   if(status.state === 'granted'){
     elmFontApiStatus.innerText = '読み込みできます';
@@ -53,7 +53,7 @@ const showStatus = async () => {
     elmFontApiStatus.style.color = 'red';
     elmLoadButton.disabled = "disabled";
     enabled = false;
-  };
+  }
 };
 
 const updateTableData = () => {
@@ -72,7 +72,7 @@ const updateTableHeight = () => {
 const updateSampleText = () => {
   if(sampleText === elmSampleTextInput.value){
     return;
-  };
+  }
   sampleText = elmSampleTextInput.value;
   updateTableData();
 };
@@ -86,7 +86,7 @@ const showInfo = (cells) => {
   elmFooterSample.innerText = cells[4].data;
   elmFooterSample.style.fontFamily = `"local_${cells[0].data}","${cells[3].data}","Tofu"`;
   elmTableJson.value = JSON.stringify(dict);
-}
+};
 
 const addFontFace = async () => {
   for(const font of fonts){
@@ -95,14 +95,14 @@ const addFontFace = async () => {
       document.fonts.add(await fontFace.load());
     }catch(e){
       console.error(`(${font.postscriptName})`, e);
-    };
-  };
+    }
+  }
 };
 
 const loadFonts = async () => {
   if(!enabled){
     return;
-  };
+  }
   try{
     fonts = await self.queryLocalFonts();
     await addFontFace();
@@ -111,7 +111,7 @@ const loadFonts = async () => {
     console.error(e);
   }finally{
     showStatus();
-  };
+  }
 };
 
 elmFontListField.style.marginTop = elmHeader.scrollHeight + 20 +'px';
@@ -126,7 +126,7 @@ elmSampleTextInput.addEventListener('keyup', updateSampleText);
 elmJsonCopyBtn.addEventListener('click', async () => {
   if(!elmTableJson.value){
     return;
-  };
+  }
   try{
     await navigator.clipboard.writeText(elmTableJson.value);
     elmCopyResult.innerText = 'コピーしました！';
@@ -136,7 +136,7 @@ elmJsonCopyBtn.addEventListener('click', async () => {
     elmCopyResult.innerText = 'コピーに失敗しました...';
     await sleep(1000);
     elmCopyResult.innerText = '';
-  };
+  }
 });
 
 elmsClickSelect.forEach( (elm) => {

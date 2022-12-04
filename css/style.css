@@ -6,13 +6,15 @@
 body {
   margin: 50px;
   font: initial;
+  min-width: 1200px;
 }
 
 h2 {
   font-family: 'Silkscreen', cursive;
 }
 
-.darkmode-layer, .darkmode-toggle {
+.darkmode-layer,
+.darkmode-toggle {
   z-index: 500;
 }
 
@@ -73,7 +75,7 @@ footer {
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;

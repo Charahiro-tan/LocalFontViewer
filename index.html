@@ -1,74 +1,79 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="ローカルフォントの情報を見ることができます">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="ローカルフォントの情報を見ることができます">
 
-    <!-- sanitize.css
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+
+  <!-- sanitize.css
     https://github.com/csstools/sanitize.css/blob/main/LICENSE.md -->
-    <link href="https://unpkg.com/sanitize.css" rel="stylesheet">
-    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+  <link href="https://unpkg.com/sanitize.css" rel="stylesheet">
+  <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 
-    <title>LocalFontViewer</title>
-  </head>
-  <body>
-    <header id="header">
-      <h2>Local Font Viewer</h2>
-      <a href="https://github.com/Charahiro-tan/LocalFontViewer" target="_blank">Github</a>&nbsp;&nbsp;
-      <a href="https://twitter.com/__Charahiro" target="_blank">twitter</a>&nbsp;&nbsp;
-      <a href="https://github.com/Charahiro-tan/LocalFontViewer/blob/main/doc/%E4%BD%BF%E3%81%84%E6%96%B9.md" target="_blank">使い方</a>&nbsp;&nbsp;
-      <a href="https://github.com/Charahiro-tan/LocalFontViewer/blob/main/doc/%E3%81%93%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.md" target="_blank">このサイトについて</a><br>
-      <br>
-      ステータス: <span id="fontApiStatus"></span>&nbsp;
-      <button class="button-3" role="button" id="fontLoad">読み込み</button><br>
-      <br>
-      サンプルテキスト&nbsp;<input id="sampleTextInput" placeholder="サンプルに表示する文字">
-    </header>
-    <div id="fontListField"></div>
-    <footer id="footer">
-      <span id="footerSample">&nbsp;</span><br>
-      <table id="footerTable">
-        <tr>
-          <td>
-            postscriptName:&nbsp;<span id="tablePostScriptName"></span>
-          </td>
-          <td>
-            fullName:&nbsp;<span id="tableFullName"></span>
-          </td>
-          <td rowspan="2">
-            JSON:&nbsp;<input id="tableJson" class="clickSelect" readonly>
-            <button id="jsonCopyBtn">コピー</button>
-            <span id="copyResult"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            style:&nbsp;<span id="tableStyle"></span>
-          </td>
-          <td>
-            family:&nbsp;<span id="tableFamily"></span>
-          </td>
-        </tr>
-      </table>
-    </footer>
-    <!-- Darkmode.js
+  <title>LocalFontViewer</title>
+</head>
+
+<body>
+  <header id="header">
+    <h2>Local Font Viewer</h2>
+    <a href="https://github.com/Charahiro-tan/LocalFontViewer" target="_blank">Github</a>&nbsp;&nbsp;
+    <a href="https://twitter.com/__Charahiro" target="_blank">twitter</a>&nbsp;&nbsp;
+    <a href="https://github.com/Charahiro-tan/LocalFontViewer/blob/main/doc/%E4%BD%BF%E3%81%84%E6%96%B9.md"
+      target="_blank">使い方</a>&nbsp;&nbsp;
+    <a href="https://github.com/Charahiro-tan/LocalFontViewer/blob/main/doc/%E3%81%93%E3%81%AE%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.md"
+      target="_blank">このサイトについて</a><br>
+    <br>
+    ステータス: <span id="fontApiStatus"></span>&nbsp;
+    <button class="button-3" role="button" id="fontLoad">読み込み</button><br>
+    <br>
+    サンプルテキスト&nbsp;<input id="sampleTextInput" placeholder="サンプルに表示する文字">
+  </header>
+  <div id="fontListField"></div>
+  <footer id="footer">
+    <span id="footerSample">&nbsp;</span><br>
+    <table id="footerTable">
+      <tr>
+        <td>
+          postscriptName:&nbsp;<span id="tablePostScriptName"></span>
+        </td>
+        <td>
+          fullName:&nbsp;<span id="tableFullName"></span>
+        </td>
+        <td rowspan="2">
+          JSON:&nbsp;<input id="tableJson" class="clickSelect" readonly>
+          <button id="jsonCopyBtn" class="button-3" role="button">コピー</button>
+          <span id="copyResult"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          style:&nbsp;<span id="tableStyle"></span>
+        </td>
+        <td>
+          family:&nbsp;<span id="tableFamily"></span>
+        </td>
+      </tr>
+    </table>
+  </footer>
+  <!-- Darkmode.js
     Released under the MIT license
     https://github.com/sandoche/Darkmode.js/blob/master/LICENSE -->
-    <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
-    <script>
-      window.addEventListener('load', () => {
-        const darkmode = new Darkmode({label: '🌓'});
-        darkmode.showWidget()
-        if(darkmode.isActivated()){
-          darkmode.toggle();
-        };
-      });
-    </script>
-    <script type="module" src="scripts/script.js"></script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+  <script>
+    window.addEventListener('load', () => {
+      const darkmode = new Darkmode({ label: '🌓' });
+      darkmode.showWidget()
+      if (darkmode.isActivated()) {
+        darkmode.toggle();
+      };
+    });
+  </script>
+  <script type="module" src="scripts/script.js"></script>
+</body>
+
 </html>

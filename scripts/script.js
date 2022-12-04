@@ -1,3 +1,4 @@
+'use strict';
 import { gridConfig } from "./gridConfig.js";
 import { sampleText as sText } from "./sampleText.js";
 
